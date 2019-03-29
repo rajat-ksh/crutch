@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Sos">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/layoutbck">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:padding="25dp"
+            android:background="@drawable/corner2">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+                <TextView
+                    android:id="@+id/police"
+                    android:layout_width="wrap_content"
+                    android:layout_height="75dp"
+                    android:text="Police"
+                    android:textSize="35dp"
+
+                    android:textStyle="bold"/>
+
+                <ImageView
+                    android:id="@+id/policeimg"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_marginLeft="90dp"
+                    android:background="@drawable/cop" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+                <TextView
+                    android:id="@+id/ambulace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="75dp"
+                    android:text="Hospital"
+                    android:textSize="35dp"
+
+                    android:textStyle="bold"/>
+                <ImageView
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_marginLeft="55dp"
+                    android:background="@drawable/amb"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                >
+                <TextView
+                    android:id="@+id/fire"
+                    android:layout_width="wrap_content"
+                    android:layout_height="75dp"
+                    android:text="Fire"
+                    android:textSize="35dp"
+
+                    android:textStyle="bold"/>
+
+                <ImageView
+                    android:layout_marginLeft="125dp"
+                    android:id="@+id/fireimg"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:background="@drawable/fire" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                >
+                <TextView
+                    android:id="@+id/emg_contanct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:text="Emergency\n Contact"
+                    android:textSize="35dp"
+                    android:inputType="textMultiLine"
+
+                    android:textStyle="bold"/>
+
+                <ImageView
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/emg_contanctimg"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:background="@drawable/call" />
+            </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+</RelativeLayout>

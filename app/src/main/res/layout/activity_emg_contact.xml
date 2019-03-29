@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".emg_contact"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/layoutbck"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/corner2"
+            android:padding="25dp"
+            android:orientation="vertical"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Emergency contact"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"/>
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+              ////////////////////////////////////////////////////
+
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="2dp"
+                      android:text="Person A "
+                      android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small" />
+
+                  <EditText
+                      android:id="@+id/num1"
+                      android:layout_width="130dp"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="2dp"
+                      android:maxLength="10"
+                      android:text="9888898888" />
+
+                  <Button
+                      android:id="@+id/call1"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="2dp"
+                      android:text="Call" />
+              </LinearLayout>
+
+              ///////////////////////////////////////////////////////////////////
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Person B "
+                      android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
+                      android:layout_margin="2dp"/>
+                  <EditText
+                      android:layout_width="130dp"
+                      android:layout_height="wrap_content"
+                      android:text="9700097000"
+                      android:layout_margin="2dp"/>
+                  <Button
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Call"
+                      android:layout_margin="2dp"/>
+              </LinearLayout>
+              ////////////////////////////////////////////////////////////////////////////
+
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="2dp"
+                      android:text="Person C"
+                      android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small" />
+
+                  <EditText
+                      android:layout_width="130dp"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="2dp"
+                      android:text="988898888" />
+
+                  <Button
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="2dp"
+                      android:text="Call" />
+              </LinearLayout>
+
+              ///////////////////////////////////////////////////////////////////
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="2dp"
+                      android:text="Person D"
+                      android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small" />
+
+                  <EditText
+                      android:layout_width="130dp"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="2dp"
+                      android:text="988898888" />
+
+                  <Button
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="2dp"
+                      android:text="Call" />
+              </LinearLayout>
+
+              ///////////////////////////////////////////////////////////////////
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent">
+
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="2dp"
+                      android:text="Person E "
+                      android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small" />
+
+                  <EditText
+                      android:layout_width="130dp"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="2dp"
+                      android:text="988898888" />
+
+                  <Button
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="2dp"
+                      android:text="Call" />
+              </LinearLayout>
+
+              ///////////////////////////////////////////////////////////////////
+          </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

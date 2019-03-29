@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".reqloc"
+    android:background="@drawable/layoutbck">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="25dp"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:background="@drawable/corner2">
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="18dp"
+            android:layout_height="wrap_content"
+            android:text="Request Location"
+            android:textStyle="bold"
+            android:paddingBottom="5dp"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Widget.PopupMenu.Large"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:text="Send sms to your contacts for their location"/>
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="135dp"
+            android:layout_height="wrap_content"
+            android:hint="Phone Number"
+            android:maxLength="10"
+            android:paddingBottom="5dp"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText2"
+            android:paddingBottom="5dp"
+            android:hint="your message..."
+            android:inputType="textMultiLine"
+            android:text="hey, where are you. please send me your live location."/>
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send Message"
+            android:paddingBottom="3dp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
