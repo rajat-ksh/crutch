@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.crutch">
+    <meta-data
+        android:name="com.google.android.gms.version"
+        android:value="@integer/google_play_services_version" />
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.SEND_SMS" /> <!-- To auto-complete the email text field in the login form with the user's emails -->
+
+    <!-- used for sms -->
+    <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" /> <!-- used for calling -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
@@ -20,8 +25,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Sos"></activity>
-        <activity android:name=".reqloc" />
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -35,12 +39,11 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".map"
-            android:label="@string/title_activity_map">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.crutch.mainpage" />
-        </activity>
+            android:name=".Mapsactivity"
+            android:label="@string/title_activity_mapsactivity"></activity>
+        <activity android:name=".Sos" />
+        <activity android:name=".reqloc" />
+
         <activity
             android:name=".mainpage"
             android:label="@string/title_activity_mainpage"

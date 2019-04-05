@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class login extends AppCompatActivity {
+    private static final int SESSION=1;
 
     EditText username;
     EditText pass;
@@ -20,16 +21,10 @@ public class login extends AppCompatActivity {
    TextView create;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(SESSION==0){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Fetch();
-        helper help=new helper(this);
-        SQLiteDatabase database=help.getReadableDatabase();
-        Cursor cursor =database.rawQuery("Select mob_no from users where id=?",new String[]{"1"});
-        if(cursor != null){
-            cursor.moveToFirst();
-            cursor.getString(0);
-        }
              create.setOnClickListener(new View.OnClickListener(){
                  @Override
                  public void onClick(View v) {
@@ -50,13 +45,19 @@ public class login extends AppCompatActivity {
                     startActivity(i);
 
                 }else{
-                    Toast.makeText(getApplicationContext(),"Logi fail",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Login fail",Toast.LENGTH_SHORT).show();
 
                 }
 
             }
         });
 
+    }
+    else
+        {
+            Intent i= new Intent(this,mainpage.class);
+            startActivity(i);
+        }
     }
 
     private void Fetch(){

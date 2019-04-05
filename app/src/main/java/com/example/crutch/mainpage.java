@@ -50,7 +50,7 @@ public class mainpage extends AppCompatActivity
         maps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i= new Intent(mainpage.this,map.class);
+                Intent i= new Intent(mainpage.this, Mapsactivity.class);
                 startActivity(i);
             }
         });
@@ -125,6 +125,7 @@ public class mainpage extends AppCompatActivity
 
         } else if (id == R.id.logout) {
             Intent i=new Intent(this,login.class);
+
             startActivity(i);
 
         } else if (id == R.id.about) {
