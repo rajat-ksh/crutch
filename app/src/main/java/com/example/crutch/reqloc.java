@@ -1,80 +1,97 @@
 package com.example.crutch;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telephony.SmsManager;
-import android.view.View;
+import android.os.Build;
 import android.widget.Button;
+import android.support.v4.content.ContextCompat;
 import android.widget.EditText;
+import android.util.Log;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.telephony.SmsManager;
+import android.text.TextUtils;
 import android.widget.Toast;
+import android.view.View;
 
 public class reqloc extends AppCompatActivity {
-    private static final int MY_PERMISSIONS_REQUEST_SEND_SMS =0 ;
-    Button sendBtn;
-    EditText txtphoneNo;
-    EditText txtMessage;
-    String phoneNo;
-    String message;
+
+    private static final int PERMISSION_REQUEST_CODE = 1;
+    private Button sendSMS;
+    EditText smsText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reqloc);
-        txtphoneNo=(EditText)findViewById(R.id.editText1);
-        txtMessage=(EditText)findViewById(R.id.editText2);
-        sendBtn= findViewById(R.id.button1);
-        sendBtn.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                // TODO Auto-generated method stub
-                sendSMSMessage();
+
+        final EditText phoneNumber = (EditText) findViewById(R.id.phoneNumber);
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkPermission()) {
+                Log.e("permission", "Permission already granted.");
+            } else {
+                requestPermission();
             }
-        });
-
-    }
-
-    protected void sendSMSMessage() {
-        phoneNo = txtphoneNo.getText().toString();
-        message = txtMessage.getText().toString();
-
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.SEND_SMS)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.SEND_SMS)) {
-            } else if(phoneNo.length()==10) {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.SEND_SMS},
-                        MY_PERMISSIONS_REQUEST_SEND_SMS);
-            }
-        }else
-        {
-            Toast.makeText(getApplicationContext(),"Enter Valid number",Toast.LENGTH_SHORT).show();
         }
-    }
-    @Override
-    public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_SEND_SMS: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    SmsManager smsManager = SmsManager.getDefault();
-                    smsManager.sendTextMessage(phoneNo, null, message, null, null);
-                    Toast.makeText(getApplicationContext(), "SMS sent.",
-                            Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(getApplicationContext(),
-                            "SMS faild, please try again.", Toast.LENGTH_LONG).show();
-                    return;
+
+        smsText = (EditText) findViewById(R.id.message);
+        sendSMS = (Button) findViewById(R.id.sendSMS);
+        sendSMS.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                String sms = smsText.getText().toString();
+                String phoneNum = phoneNumber.getText().toString();
+                if(!TextUtils.isEmpty(sms) && !TextUtils.isEmpty(phoneNum)) {
+                    if(checkPermission()) {
+
+//Get the default SmsManager//
+
+                        SmsManager smsManager = SmsManager.getDefault();
+
+//Send the SMS//
+
+                        smsManager.sendTextMessage(phoneNum, null, sms, null, null);
+                    }else {
+                        Toast.makeText(reqloc.this, "Permission denied", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
-        }
+        });
+    }
 
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(reqloc.this, Manifest.permission.SEND_SMS);
+        if (result == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, PERMISSION_REQUEST_CODE);
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    Toast.makeText(reqloc.this,
+                            "Permission accepted", Toast.LENGTH_LONG).show();
+
+                } else {
+                    Toast.makeText(reqloc.this,
+                            "Permission denied", Toast.LENGTH_LONG).show();
+                    Button sendSMS = (Button) findViewById(R.id.sendSMS);
+                    sendSMS.setEnabled(false);
+
+                }
+                break;
+        }
     }
 }

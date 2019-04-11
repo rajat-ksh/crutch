@@ -33,7 +33,7 @@
                     android:layout_height="80dp"
                     android:text="Police\n100"
                     android:textSize="35dp"
-
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
                     android:textStyle="bold"/>
 
                 <ImageView
@@ -53,6 +53,7 @@
                 android:id="@+id/fire"
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
                 android:text="Fire\n101"
                 android:textSize="35dp"
 
@@ -69,6 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+
                 android:layout_weight="1"
                 android:gravity="center">
                 <TextView
@@ -76,6 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="80dp"
                     android:text="Hospital\n102"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
                     android:textSize="35dp"
 
                     android:textStyle="bold"/>
@@ -99,6 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
                 android:text="National\nEmergency\nNunmber\n112"
                 android:textSize="35dp"
 

@@ -69,17 +69,22 @@
                   android:layout_width="match_parent"
                   android:layout_height="match_parent">
                   <TextView
+
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:text="Person B "
                       android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
                       android:layout_margin="2dp"/>
                   <EditText
+                      android:id="@+id/num2"
                       android:layout_width="130dp"
                       android:layout_height="wrap_content"
                       android:text="9700097000"
+                      android:maxLength="10"
+
                       android:layout_margin="2dp"/>
                   <Button
+                      android:id="@+id/call2"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:text="Call"
@@ -99,12 +104,16 @@
                       android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small" />
 
                   <EditText
+                      android:id="@+id/num3"
                       android:layout_width="130dp"
                       android:layout_height="wrap_content"
                       android:layout_margin="2dp"
+                      android:maxLength="10"
+
                       android:text="988898888" />
 
                   <Button
+                      android:id="@+id/call3"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:layout_margin="2dp"
@@ -124,12 +133,15 @@
                       android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small" />
 
                   <EditText
+                      android:id="@+id/num4"
                       android:layout_width="130dp"
                       android:layout_height="wrap_content"
+                      android:maxLength="10"
                       android:layout_margin="2dp"
                       android:text="988898888" />
 
                   <Button
+                      android:id="@+id/call4"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:layout_margin="2dp"
@@ -149,12 +161,15 @@
                       android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small" />
 
                   <EditText
+                      android:id="@+id/num5"
                       android:layout_width="130dp"
                       android:layout_height="wrap_content"
                       android:layout_margin="2dp"
+                      android:maxLength="10"
                       android:text="988898888" />
 
                   <Button
+                      android:id="@+id/call5"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:layout_margin="2dp"

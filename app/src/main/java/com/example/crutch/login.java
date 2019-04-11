@@ -18,10 +18,9 @@ public class login extends AppCompatActivity {
     EditText username;
     EditText pass;
     Button btn;
-   TextView create;
+   TextView create,emergency;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(SESSION==0){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Fetch();
@@ -29,6 +28,14 @@ public class login extends AppCompatActivity {
                  @Override
                  public void onClick(View v) {
                      Intent i =new Intent(login.this,register.class);
+                     startActivity(i);
+                 }
+             });
+
+             emergency.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+                     Intent i=new Intent(login.this,Sos.class);
                      startActivity(i);
                  }
              });
@@ -53,18 +60,15 @@ public class login extends AppCompatActivity {
         });
 
     }
-    else
-        {
-            Intent i= new Intent(this,mainpage.class);
-            startActivity(i);
-        }
-    }
+
+
 
     private void Fetch(){
         username=findViewById(R.id.mobile);
         pass=findViewById(R.id.password);
         btn=findViewById(R.id.btnlogin);
         create=findViewById(R.id.create);
+        emergency=findViewById(R.id.emg);
    }
 }
 

@@ -10,12 +10,17 @@
          location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.hardware.camera2"/>
 
     <!-- used for sms -->
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" /> <!-- used for calling -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" /> 
+    
+    <!-- used for calling -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application

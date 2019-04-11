@@ -27,7 +27,7 @@
             android:paddingBottom="8dp"
             android:text="Send sms to your contacts for their location"/>
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/phoneNumber"
             android:layout_width="135dp"
             android:layout_height="wrap_content"
             android:hint="Phone Number"
@@ -35,15 +35,16 @@
             android:paddingBottom="5dp"
             />
         <EditText
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText2"
+            android:id="@+id/Message"
             android:paddingBottom="5dp"
             android:hint="your message..."
             android:inputType="textMultiLine"
             android:text="hey, where are you. please send me your live location."/>
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/sendSMS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Send Message"
