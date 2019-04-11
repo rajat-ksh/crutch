@@ -81,7 +81,7 @@ public class mainpage extends AppCompatActivity
         });
 
         //calling sos calls
-        sos=findViewById(R.id.sos);
+        sos=findViewById(R.id.soscalls);
         sos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
