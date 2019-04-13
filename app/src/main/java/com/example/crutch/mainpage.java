@@ -6,7 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
-import android.media.MediaPlayer;
+//import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,6 +14,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -33,12 +34,13 @@ public class mainpage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     int counter=1;
+    String number,sms;
     private static final int REQUEST_CAMERA= 1;
     private Camera camera;
     private boolean isFlashOn;
     private boolean hasFlash;
     Camera.Parameters params;
-    MediaPlayer mp;
+   // MediaPlayer mp;
 
     ImageButton SOSimgbtn;
     ImageView sos,maps,nearby,emgcall;
@@ -48,10 +50,10 @@ public class mainpage extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainpage);
         turnOffFlash();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,13 +62,13 @@ public class mainpage extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView =  findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
 
@@ -91,7 +93,7 @@ public class mainpage extends AppCompatActivity
         });
 
         //calling emergency calls
-        emgcall=(ImageView)findViewById(R.id.calls);
+        emgcall=findViewById(R.id.calls);
         emgcall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,6 +139,9 @@ public class mainpage extends AppCompatActivity
 
             @Override
             public void onClick(View v) {
+                counter ++;
+
+
                 if(ContextCompat.checkSelfPermission(mainpage.this,
                         Manifest.permission.CAMERA)!=PackageManager.PERMISSION_GRANTED){
                     ActivityCompat.requestPermissions(mainpage.this,
@@ -146,16 +151,32 @@ public class mainpage extends AppCompatActivity
                     turnOffFlash();
                 } else {
                     // turn on flash
-
                     turnOnFlash();
+                    sendsms();
+                        }
+
                 }
 
 
             }
-        });
+        );
+    }
 
-
-
+    private  void  sendsms(){
+        try{
+            number="9896751225";
+            sms="hii";
+            if(number.length()==10){
+                SmsManager smgr = SmsManager.getDefault();
+                smgr.sendTextMessage(number,null,sms,null,null);
+                Toast.makeText(mainpage.this, "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(mainpage.this, "please enter a valid number", Toast.LENGTH_SHORT).show();
+            }
+        }
+        catch (Exception e){
+            Toast.makeText(mainpage.this, "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -208,35 +229,15 @@ public class mainpage extends AppCompatActivity
             camera.stopPreview();
             isFlashOn = false;
 
+            counter=0;
+
             // changing button/switch image
             toggleButtonImage();
         }
     }
 
 
-    // Playing sound
-    // will play button toggle sound on flash on / off
-   /* private void playSound(){
-        if(isFlashOn){
-            mp = MediaPlayer.create(MainActivity2.this, R.raw.light_switch_off);
-        }else{
-            mp = MediaPlayer.create(MainActivity2.this, R.raw.light_switch_on);
-        }
-        mp.setOnCompletionListener(new OnCompletionListener() {
 
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-
-                mp.release();
-            }
-        });
-        mp.start();
-    }*/
-
-    /*
-     * Toggle switch button images
-     * changing image states to on / off
-     * */
     private void toggleButtonImage(){
         if(isFlashOn){
            SOSimgbtn.setImageResource(R.mipmap.sos2);
@@ -294,7 +295,7 @@ public class mainpage extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -351,7 +352,7 @@ public class mainpage extends AppCompatActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

@@ -1,9 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        >
+        <EditText
+            android:id="@+id/search"
+            android:layout_width="314dp"
+            android:layout_height="match_parent"
+            android:hint="Search for any place"
+            />
+
+        <ImageButton
+            android:id="@+id/search_btn"
+            android:layout_width="50dp"
+            android:onClick="onClick"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_search_black_24dp" />
+
+    </LinearLayout>
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/map"
+    android:layout_marginTop="60dp"
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Mapsactivity" />
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/police"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/police"
+            android:onClick="onClick"
+            android:layout_marginRight="10dp"/>
+
+        <ImageButton
+            android:id="@+id/fire"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:src="@mipmap/fire"
+            android:layout_marginRight="10dp"
+            />
+        <ImageButton
+            android:id="@+id/hospital"
+            android:onClick="onClick"
+            android:layout_width="75dp"
+            android:layout_height="match_parent"
+            android:src="@mipmap/hospital"/>
+    </LinearLayout>
+</RelativeLayout>
