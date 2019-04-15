@@ -2,56 +2,95 @@ package com.example.crutch;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
-//import android.media.MediaPlayer;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.telephony.SmsManager;
-import android.util.Log;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+
+import java.util.List;
+import java.util.Locale;
+
+//import android.media.MediaPlayer;
 
 
 public class mainpage extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback,
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
+        LocationListener {
 
-    int counter=1;
-    String number,sms;
-    private static final int REQUEST_CAMERA= 1;
+
+    double lt,lg;
+    private static final int REQUEST_SMS = 1;
+    String ad;
+
+    TextView locationText;
+
+    LocationManager locationManager;
+    int counter = 1;
+    String number, sms;
+    private static final int REQUEST_CAMERA = 1;
     private Camera camera;
     private boolean isFlashOn;
+    MediaPlayer mp;
     private boolean hasFlash;
+
     Camera.Parameters params;
-   // MediaPlayer mp;
+    // MediaPlayer mp;
 
     ImageButton SOSimgbtn;
-    ImageView sos,maps,nearby,emgcall;
+    ImageView sos, maps, nearby, emgcall;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainpage);
         turnOffFlash();
-        Toolbar toolbar =  findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        locationText = findViewById(R.id.locationText);
+
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, 101);
+
+        }
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -62,57 +101,67 @@ public class mainpage extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView =  findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
 
         //calling map activity
-        maps=findViewById(R.id.map);
+        maps = findViewById(R.id.map);
         maps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i= new Intent(mainpage.this, Mapsactivity.class);
+                Intent i = new Intent(mainpage.this, Mapsactivity.class);
                 startActivity(i);
             }
         });
 
         //calling sos calls
-        sos=findViewById(R.id.soscalls);
+        sos = findViewById(R.id.soscalls);
         sos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(mainpage.this,Sos.class);
+                Intent i = new Intent(mainpage.this, Sos.class);
                 startActivity(i);
             }
         });
 
         //calling emergency calls
-        emgcall=findViewById(R.id.calls);
+        emgcall = findViewById(R.id.calls);
         emgcall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent link=new Intent(Intent.ACTION_VIEW, Uri.parse("http://indianhelpline.com/"));
+                Intent link = new Intent(Intent.ACTION_VIEW, Uri.parse("http://indianhelpline.com/"));
                 startActivity(link);
             }
         });
 
 
-
-
         //callig sos button
-        SOSimgbtn=findViewById(R.id.sos);
+        SOSimgbtn = findViewById(R.id.sos);
+
+        //calling nearby
+        nearby=findViewById(R.id.nearby);
+        nearby.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(mainpage.this,Mapsactivity.class);
+                startActivity(i);
+            }
+        });
+
 
         // First check if device is supporting flashlight or not
+
         hasFlash = getApplicationContext().getPackageManager()
                 .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
 
-        if (!hasFlash){
+        if (!hasFlash) {
             // device doesn't support flash
             // Show alert message and close the application
             AlertDialog alert = new AlertDialog.Builder(mainpage.this)
@@ -137,47 +186,127 @@ public class mainpage extends AppCompatActivity
 
         SOSimgbtn.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                counter ++;
+                                         @Override
+                                         public void onClick(View v) {
+
+                                             if (ContextCompat.checkSelfPermission(mainpage.this,
+                                                     Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                                                 ActivityCompat.requestPermissions(mainpage.this,
+                                                         new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA);
+                                             } else if (isFlashOn) {
+                                                 // turn off flash
+                                                 turnOffFlash();
+                                             } else {
+                                                 // turn on flash
+                                                 turnOnFlash();
+                                                 getLocation();
+
+                                             }
+
+                                         }
 
 
-                if(ContextCompat.checkSelfPermission(mainpage.this,
-                        Manifest.permission.CAMERA)!=PackageManager.PERMISSION_GRANTED){
-                    ActivityCompat.requestPermissions(mainpage.this,
-                            new String[]{Manifest.permission.CAMERA},REQUEST_CAMERA);
-                }else if (isFlashOn) {
-                    // turn off flash
-                    turnOffFlash();
-                } else {
-                    // turn on flash
-                    turnOnFlash();
-                    sendsms();
-                        }
-
-                }
-
-
-            }
+                                     }
         );
     }
 
-    private  void  sendsms(){
-        try{
-            number="9896751225";
-            sms="hii";
-            if(number.length()==10){
+    void getLocation() {
+        try {
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 5, this);
+        }
+        catch(SecurityException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendsms() {
+
+
+        //1st persons messages
+        //help me as soon as possible
+        number = "7985034370";
+        try {
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)!=
+                    PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, REQUEST_SMS);
+
+            }
+            String sms="Help me Please as soon as possible: my Location:";
+            if (number.length() == 10) {
                 SmsManager smgr = SmsManager.getDefault();
-                smgr.sendTextMessage(number,null,sms,null,null);
+                smgr.sendTextMessage(number, null,sms, null, null);
                 Toast.makeText(mainpage.this, "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
                 Toast.makeText(mainpage.this, "please enter a valid number", Toast.LENGTH_SHORT).show();
             }
+        } catch (Exception e) {
+            Toast.makeText(mainpage.this, "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
         }
-        catch (Exception e){
+        //latitdue longitude for 1st person
+        try {
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)!=
+                    PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, REQUEST_SMS);
+
+            }
+            if (number.length() == 10) {
+                SmsManager smgr = SmsManager.getDefault();
+                smgr.sendTextMessage(number, null,ad, null, null);
+                Toast.makeText(mainpage.this, "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(mainpage.this, "please enter a valid number", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
             Toast.makeText(mainpage.this, "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
         }
 
+
+
+
+
+        //2nd person
+        //help me msg
+        String number1 = "7733021684";
+        try {
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)!=
+                    PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, REQUEST_SMS);
+
+            }
+
+             sms="Help me Please as soon as possible: my Location:";
+            if (number.length() == 10) {
+                SmsManager smgr = SmsManager.getDefault();
+                smgr.sendTextMessage(number1, null,sms, null, null);
+                Toast.makeText(mainpage.this, "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(mainpage.this, "please enter a valid number", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(mainpage.this, "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
+        }
+        //latitide and longitude
+        try {
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)!=
+                    PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, REQUEST_SMS);
+
+            }
+
+            if (number.length() == 10) {
+                SmsManager smgr = SmsManager.getDefault();
+                smgr.sendTextMessage(number1, null,ad, null, null);
+                Toast.makeText(mainpage.this, "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(mainpage.this, "please enter a valid number", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(mainpage.this, "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
+        }
+
+
+        playSound();
     }
 
     // Get the camera
@@ -209,6 +338,7 @@ public class mainpage extends AppCompatActivity
 
             // changing button/switch image
             toggleButtonImage();
+           ;
         }
 
     }
@@ -229,7 +359,7 @@ public class mainpage extends AppCompatActivity
             camera.stopPreview();
             isFlashOn = false;
 
-            counter=0;
+            counter = 0;
 
             // changing button/switch image
             toggleButtonImage();
@@ -237,13 +367,30 @@ public class mainpage extends AppCompatActivity
     }
 
 
-
-    private void toggleButtonImage(){
-        if(isFlashOn){
-           SOSimgbtn.setImageResource(R.mipmap.sos2);
-        }else{
+    private void toggleButtonImage() {
+        if (isFlashOn) {
+            SOSimgbtn.setImageResource(R.mipmap.sos2);
+        } else {
             SOSimgbtn.setImageResource(R.mipmap.sos1);
         }
+    }
+
+    private void playSound(){
+        if(isFlashOn){
+            mp = MediaPlayer.create(this, R.raw.danger);
+        }else{
+
+
+        }
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                // TODO Auto-generated method stub
+                mp.release();
+            }
+        });
+        mp.start();
     }
 
     @Override
@@ -269,7 +416,7 @@ public class mainpage extends AppCompatActivity
         super.onResume();
 
         // on resume turn on the flash
-        if(hasFlash)
+        if (hasFlash)
             turnOffFlash();
     }
 
@@ -334,17 +481,18 @@ public class mainpage extends AppCompatActivity
         if (id == R.id.home) {
             // Handle the camera action
         } else if (id == R.id.emg_contanct) {
-            Intent i=new Intent(this,emg_contact.class);
+            Intent i = new Intent(this, emg_contact.class);
             startActivity(i);
 
         } else if (id == R.id.reqloc) {
-            Intent i=new Intent(this,reqloc.class);
+            Intent i = new Intent(this, reqloc.class);
             startActivity(i);
 
         } else if (id == R.id.setting) {
 
         } else if (id == R.id.logout) {
-            Intent i=new Intent(this,login.class);
+
+            Intent i = new Intent(this, login.class);
 
             startActivity(i);
 
@@ -352,10 +500,11 @@ public class mainpage extends AppCompatActivity
 
         }
 
-        DrawerLayout drawer =  findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_CAMERA) {
@@ -365,5 +514,66 @@ public class mainpage extends AppCompatActivity
                 Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        lt=location.getLatitude();
+        lg=location.getLongitude();
+
+        try {
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            locationText.setText("Latitude: " + location.getLatitude() + "\n Longitude: " + location.getLongitude() + "\n"+addresses.get(0).getAddressLine(0)+", "+
+                    addresses.get(0).getAddressLine(1)+", "+addresses.get(0).getAddressLine(2));
+
+            ad=locationText.getText().toString();
+
+
+        }catch(Exception e)
+        {
+
+        }
+
+        sendsms();
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
+
+
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
     }
 }

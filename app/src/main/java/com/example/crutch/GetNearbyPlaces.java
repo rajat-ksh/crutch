@@ -26,7 +26,7 @@ public class GetNearbyPlaces extends AsyncTask<Object,String,String> {
 
         DownloadUrl downloadUrl=new DownloadUrl();
         try{
-        googleplaceData=downloadUrl.ReatTheUrl(url);
+        googleplaceData=downloadUrl.ReadTheUrl(url);
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -42,6 +42,7 @@ public class GetNearbyPlaces extends AsyncTask<Object,String,String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
 
         DisplayNearbyPlaces(nearByPlacesList);
 

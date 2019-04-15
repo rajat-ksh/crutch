@@ -9,13 +9,13 @@ import java.util.HashMap;
 import java.util.List;
 
 public class DataParser {
-    private HashMap<String,String> getSingleNarbyPlace(JSONObject googlePlacesJSON){
+    private HashMap<String,String> getSingleNearbyPlace(JSONObject googlePlacesJSON){
         HashMap<String,String> googlePlaceMap= new HashMap<>();
         String Nameofplace="--NA--";
         String vicinity="--NA--";
-        String latitude="--NA--";
-        String longitude="--NA--";
-        String reference="--NA--";
+        String latitude="";
+        String longitude="";
+        String reference="";
         try {
             if(!googlePlacesJSON.isNull("name")){
                Nameofplace=googlePlacesJSON.getString("name");
@@ -48,7 +48,7 @@ public class DataParser {
 
         for(int i=0;i<conter;i++){
             try {
-                NearbyplaceMap = getSingleNarbyPlace((JSONObject) jsonArray.get(i));
+                NearbyplaceMap = getSingleNearbyPlace((JSONObject) jsonArray.get(i));
                 nearbyPlacesList.add(NearbyplaceMap);
             }catch (JSONException e){
                 e.printStackTrace();

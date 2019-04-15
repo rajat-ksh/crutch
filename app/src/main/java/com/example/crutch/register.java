@@ -23,13 +23,14 @@ public class register extends AppCompatActivity {
     public void profile(View v){
 
         String username;
-        String mob;
+        String mob,pd;
         username=user.getText().toString();
         mob=Mob.getText().toString();
+        pd=pass.getText().toString();
         Intent i=new Intent(this,profile.class);
 
-        if(username.equals("")||mob.equals("")) {
-            Toast.makeText(getApplicationContext(),"no empty",Toast.LENGTH_SHORT).show();
+        if(username.equals("")||mob.equals("")||pd.equals("")){
+            Toast.makeText(getApplicationContext(),"Fill all the Field",Toast.LENGTH_SHORT).show();
         }else{
         i.putExtra("Username",username);
         i.putExtra("Mobile",mob);

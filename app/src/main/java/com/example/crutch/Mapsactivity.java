@@ -91,6 +91,7 @@ public class Mapsactivity extends FragmentActivity implements OnMapReadyCallback
 
         String hospital="HOSPITAL",police="POLICE",fire="FIRE";
         Object transferData[]=new Object[2];
+
         GetNearbyPlaces getNearbyPlaces=new GetNearbyPlaces();
 
 
@@ -169,12 +170,12 @@ public class Mapsactivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private String getUrl(double latitude, double longitude, String nearbyplaces){
-      StringBuilder googleURL=new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+      StringBuilder googleURL=new StringBuilder("https://maps.googleapis.com/maps/api/place/findplacefromtext/json?");
         googleURL.append("location="+latitude+","+longitude);
-        googleURL.append("&radius"+proximityRadius);
-        googleURL.append("&type"+nearbyplaces);
+        googleURL.append("&radius="+proximityRadius);
+        googleURL.append("&type="+nearbyplaces);
         googleURL.append("&sensor=true");
-        googleURL.append("&key"+"AIzaSyA8SM0ys5qNaDuHK-Yev4JEmIGbjySFO-w");
+        googleURL.append("&key"+"AIzaSyBoSmEVWrIIjAw7MRjrDVa7ZPkt9EVeMPc");
 
 
         Log.d("MapsActivity","url="+googleURL.toString());
@@ -259,7 +260,7 @@ public class Mapsactivity extends FragmentActivity implements OnMapReadyCallback
         locationRequest = new LocationRequest();
         locationRequest.setInterval(1100);
         locationRequest.setFastestInterval(1100);
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED){
         LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient,locationRequest,this);
         }

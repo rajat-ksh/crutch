@@ -66,6 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:ems="10"
+                android:maxLength="10"
                 android:hint="Mobile Number"
 
                 android:inputType="textPersonName"

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class profile extends AppCompatActivity {
 
@@ -35,6 +36,7 @@ public class profile extends AppCompatActivity {
     }
 
     public void mainpage(View v) {
+        Toast.makeText(getApplicationContext(),"Saved Sucessfully..!!",Toast.LENGTH_LONG).show();
         Intent i=new Intent(this,mainpage.class);
         startActivity(i);
     }
