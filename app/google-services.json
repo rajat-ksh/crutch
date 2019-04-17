@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "688156907398",
+    "firebase_url": "https://crutch-c4803.firebaseio.com",
+    "project_id": "crutch-c4803",
+    "storage_bucket": "crutch-c4803.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:688156907398:android:598f724355496eed",
+        "android_client_info": {
+          "package_name": "com.example.crutch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "688156907398-5dfic68emoc1sb3nk7jaqe6mj9sf3or6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.crutch",
+            "certificate_hash": "e2fb28e568ca83fd74c802fca58d6144ab197edd"
+          }
+        },
+        {
+          "client_id": "688156907398-nendpbdhd9bptg0brq9j72hjq4fgsc5d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCB6BsB6bKOW0Bzsx9dcDG27kuRYmVK06c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "688156907398-nendpbdhd9bptg0brq9j72hjq4fgsc5d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
