@@ -43,7 +43,6 @@
             android:padding="25dp">
 
             <TextView
-                android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="WELCOME BACK.!"
@@ -56,38 +55,37 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Mobile  no."
+                android:text="@string/Email"
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/mobile"
+                android:id="@+id/email"
                 android:layout_width="272dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:ems="10"
-                android:maxLength="10"
-                android:hint="Mobile Number"
 
-                android:inputType="textPersonName"
+                android:hint="@string/Email"
+
+                android:inputType="textEmailAddress"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Password"
+                android:text="@string/password"
 
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/pswd"
                 android:layout_width="272dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:ems="10"
-                android:hint="Password"
+                android:hint="@string/password"
                 android:inputType="textPassword"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
@@ -98,9 +96,16 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/corners"
-                android:text="LOGIN"
+                android:text="@string/login"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/reset"
+                android:text="@string/reset"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"/>
             <TextView
                 android:id="@+id/create"
                 android:layout_width="wrap_content"
@@ -108,20 +113,28 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginLeft="10dp"
                 android:autoLink="all"
-                android:text="New to Crutch?\nCreate a account now. Click here"
+                android:text="@string/create"
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"></TextView>
 
             <TextView
                 android:id="@+id/emg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SKIP FOR NOW..Its an EMERGENCY..!!"
+                android:text="@string/emergency"
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
                 android:textSize="22dp"
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/Red"
                 />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center|bottom"
+                android:layout_marginBottom="20dp"
+                android:visibility="gone" />
 
         </LinearLayout>
     </LinearLayout>

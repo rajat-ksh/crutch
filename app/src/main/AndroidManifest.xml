@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.crutch">
+
+
     <meta-data
         android:name="com.google.android.gms.version"
         android:value="@integer/google_play_services_version" />
@@ -68,7 +70,9 @@
             android:label=" My Profile" />
         <activity
             android:name=".register"
-            android:label="Register" />
+            android:label="Register">
+
+        </activity>
         <activity
             android:name=".login"
             android:label="Login" />

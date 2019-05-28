@@ -41,6 +41,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 import java.util.Locale;
@@ -70,6 +71,8 @@ public class mainpage extends AppCompatActivity
     MediaPlayer mp;
     private boolean hasFlash;
 
+    private FirebaseAuth mAuth;
+
     Camera.Parameters params;
     // MediaPlayer mp;
 
@@ -80,6 +83,9 @@ public class mainpage extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainpage);
+
+        mAuth=FirebaseAuth.getInstance();
+
         turnOffFlash();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -492,9 +498,9 @@ public class mainpage extends AppCompatActivity
 
         } else if (id == R.id.logout) {
 
-            Intent i = new Intent(this, login.class);
-
-            startActivity(i);
+            mAuth.signOut();
+            finish();
+            startActivity(new Intent(this,login.class));
 
         } else if (id == R.id.about) {
 
